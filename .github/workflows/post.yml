@@ -1,0 +1,62 @@
+# 매일 밤 10시(한국 시간) 그날 원고(bot/drafts/YYYY-MM-DD.json)로 카드뉴스를 게시한다.
+# 원고가 없거나 이미 올린 주제면 아무것도 하지 않는다. GitHub 사정으로 몇 분~수십 분 늦을 수 있음.
+name: daily-post
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "게시 없이 이미지까지만 (true/false)"
+        type: boolean
+        default: true
+      date:
+        description: "원고 날짜 YYYY-MM-DD (비우면 오늘)"
+        type: string
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: daily-post
+  cancel-in-progress: false
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: bot
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: bot/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y fonts-noto-cjk >/dev/null
+      - run: |
+          git config user.name "daily-ai-bot"
+          git config user.email "daily-ai-bot@users.noreply.github.com"
+      - name: 오늘 원고로 게시
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          GRAPH_HOST: https://graph.facebook.com
+          GRAPH_VERSION: v25.0
+          SLIDES_GIT_DIR: ${{ github.workspace }}
+          DATE_INPUT: ${{ inputs.date }}
+          DRY: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: |
+          D="${DATE_INPUT:-$(TZ=Asia/Seoul date +%F)}"
+          F="drafts/$D.json"
+          if [ ! -f "$F" ]; then echo "원고 없음: $F (오늘은 게시하지 않음)"; exit 0; fi
+          if node -e 'const t=require("./"+process.argv[1]).topic;process.exit(require("./state/posted.json").some(p=>p.topic===t)?0:1)' "$F"; then echo "이미 올린 주제: $F"; exit 0; fi
+          if [ "$DRY" = "true" ]; then node daily.mjs --from "$F" --dry-run; else node daily.mjs --from "$F"; fi
+      - name: 기록 저장 (게시 이력·자료 페이지)
+        if: always()
+        run: |
+          git pull --rebase -q || true
+          git add state guides
+          git diff --cached --quiet || (git commit -qm "post: 기록 저장" && git push -q)

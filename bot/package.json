@@ -1,0 +1,20 @@
+{
+  "name": "insta-claude-automation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "daily": "node --env-file-if-exists=.env daily.mjs",
+    "daily:dry": "node --env-file-if-exists=.env daily.mjs --dry-run",
+    "replies": "node --env-file-if-exists=.env comments.mjs",
+    "replies:send": "node --env-file-if-exists=.env comments.mjs --send",
+    "server": "node --env-file-if-exists=.env server.mjs",
+    "analyze": "node --env-file-if-exists=.env analyze.mjs",
+    "summary": "node summary.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "@aws-sdk/client-s3": "^3.1160.0",
+    "playwright": "^1.50.0",
+    "zod": "^3.25.0"
+  }
+}
