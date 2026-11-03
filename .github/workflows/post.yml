@@ -54,6 +54,13 @@ jobs:
           if [ ! -f "$F" ]; then echo "원고 없음: $F (오늘은 게시하지 않음)"; exit 0; fi
           if node -e 'const t=require("./"+process.argv[1]).topic;process.exit(require("./state/posted.json").some(p=>p.topic===t)?0:1)' "$F"; then echo "이미 올린 주제: $F"; exit 0; fi
           if [ "$DRY" = "true" ]; then node daily.mjs --from "$F" --dry-run; else node daily.mjs --from "$F"; fi
+      - name: 미리보기 이미지 보관 (시험 실행일 때)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides
+          path: bot/out/
+          retention-days: 3
       - name: 기록 저장 (게시 이력·자료 페이지)
         if: always()
         run: |
