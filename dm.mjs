@@ -60,7 +60,7 @@ for (const [mediaId, c] of Object.entries(campaigns)) {
     if (cm.username === myName || Date.now() - new Date(cm.timestamp) > WEEK) continue;
     if (cm.replies?.data?.some((r) => r.username === myName)) continue; // 이미 처리한 댓글
     if (c.keyword && !norm(cm.text).includes(norm(c.keyword))) continue;
-    if (/https?://|www.|.com/i.test(cm.text ?? "")) continue; // 링크 댓글은 스팸
+    if (/https?:\/\/|www\.|\.com\b/i.test(cm.text ?? "")) continue; // 링크 댓글은 스팸
     const text = (settings.message ?? "요청하신 자료 보내드려요 👇\n{title}\n{link}")
       .replaceAll("{title}", c.title ?? "").replaceAll("{link}", c.link).replaceAll("{username}", cm.username ?? "");
     if (dry) {
