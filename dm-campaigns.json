@@ -1,0 +1,17 @@
+{
+  "settings": {
+    "message": "안녕하세요! 요청하신 자료 보내드려요 👇\n\n📎 {title}\n{link}\n\n매일 하나씩 이런 자료를 올려요. 팔로우해 두시면 다음 자료도 바로 받아보실 수 있어요 🙌\n\n※ 링크가 안 열리면 프로필의 '자료 모음'에서도 받을 수 있어요.",
+    "public_replies": [
+      "DM 보내드렸어요! 📩",
+      "DM으로 쏙 넣어드렸어요 🙌",
+      "보내드렸어요! DM 확인해 주세요 😊",
+      "자료 DM으로 보냈어요 📮"
+    ],
+    "max_per_run": 30
+  },
+  "18117979301599854": {
+    "keyword": "자료",
+    "title": "주간보고 10분 컷 클로드 프롬프트 24개 + 보고서 양식",
+    "link": "https://youngsic1236.github.io/daily-ai-bot-slides/g/weekly-report.html"
+  }
+}
