@@ -1,0 +1,79 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DM으로 못 받으신 자료 모음 — daily_ai_bot</title><meta name="description" content="댓글로 신청한 자료를 여기서 바로 받으세요"><meta property="og:title" content="DM으로 못 받으신 자료 모음"><meta property="og:description" content="댓글로 신청한 자료를 여기서 바로 받으세요">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--bg:#0F0F0F;--card:#181C25;--line:#2A2D34;--muted:#9AA5B4;--accent:#5093FF;--fg:#EAEEF2}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Pretendard,sans-serif;word-break:keep-all;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+em{font-style:normal;color:var(--accent)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-size:14px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--fg);text-decoration:none}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+.hero{position:relative;border-radius:24px;overflow:hidden;margin:6px 0 28px;aspect-ratio:4/3;background:#000}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))}
+.hero .badge{position:absolute;left:20px;bottom:18px;z-index:1;display:flex;gap:8px}
+.chip{display:inline-block;font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(80,147,255,.16);color:var(--accent);border:1px solid rgba(80,147,255,.35)}
+h1{font-size:32px;line-height:1.3;font-weight:900;letter-spacing:-.8px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px;color:var(--muted);font-size:14px}
+.meta b{color:var(--fg)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 22px}
+.summary h3{font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.summary ul{padding-left:18px}
+.summary li{margin:4px 0}
+.toc{margin:16px 0 40px}
+.toc h3{font-size:15px;margin-bottom:12px}
+.toc ol{list-style:none;padding:0;counter-reset:t}
+.toc li{counter-increment:t;display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.toc li:first-child{border-top:0}
+.toc li::before{content:counter(t);width:24px;height:24px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.toc li.lock::after{content:"🔒";margin-left:auto;font-size:13px;opacity:.7}
+h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin:48px 0 6px;scroll-margin-top:20px}
+h2 small{display:block;font-size:13px;color:var(--accent);font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.lead{color:var(--muted);margin-bottom:18px}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden}
+.prompt header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.prompt header b{font-size:16px}
+.prompt header b span{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.copy{font:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.copy.done{background:#2a9d5c}
+.prompt pre{margin:0;padding:16px 18px;white-space:pre-wrap;font-family:inherit;font-size:15px;color:#d6dce4}
+.prompt .ok{padding:0 18px 16px;font-size:13px;color:var(--muted)}
+.prompt .ok::before{content:"✓ ";color:var(--accent);font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:13px}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px}
+.gate{position:relative}
+.gate .blur{filter:blur(4px);opacity:.7;pointer-events:none;user-select:none;max-height:720px;overflow:hidden}
+.gate .unlock{position:absolute;left:0;right:0;top:80px;margin:0 auto;max-width:440px}
+.unlock h3{font-size:19px;margin-bottom:6px}
+.unlock p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.unlock input[type=email]{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0b0d12;color:var(--fg);margin-bottom:10px}
+.unlock label{display:flex;gap:8px;font-size:13px;color:var(--muted);margin:6px 0;align-items:flex-start}
+.unlock .btn{width:100%;margin-top:10px;font:inherit;font-weight:800;font-size:16px;padding:14px;border:0;border-radius:12px;background:var(--accent);color:#fff;cursor:pointer}
+.unlock .notice{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(15,15,15,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.bar .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}
+.bar a{background:var(--accent);color:#fff;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:10px;white-space:nowrap}
+.hub h1{margin-top:10px}
+.search{width:100%;font:inherit;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);margin:18px 0}
+.item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin:10px 0;text-decoration:none}
+.item img{width:64px;height:80px;border-radius:10px;object-fit:cover;flex:none;background:#000}
+.item b{font-size:15px;line-height:1.45}
+.item small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.item::after{content:"→";margin-left:auto;color:var(--accent);font-weight:800}
+footer{margin-top:60px;color:var(--muted);font-size:12px}
+footer a{color:var(--muted)}
+@media (max-width:520px){h1{font-size:26px}h2{font-size:21px}}</style></head><body><div class="wrap">
+<div class="top"><a class="brand" href="index.html"><span class="logo">D</span>daily_ai_bot</a><span>자료 모음</span></div>
+<div class="hub"><span class="chip">자료 모음</span><h1>DM으로 못 받으셨다면<br><em>여기서 바로</em> 받아 가세요</h1>
+<p class="lead" style="margin-top:12px">댓글이 몰리면 DM이 늦거나 빠질 수 있어요. 댓글 단 게시물의 표지를 찾아 눌러 주세요. 최신 자료가 맨 위에 있어요.</p>
+<input class="search" placeholder="찾는 자료 검색 (예: 보고서, 엑셀, 메일)" oninput="const q=this.value.trim();document.querySelectorAll('.item').forEach(a=>a.style.display=a.textContent.includes(q)?'':'none')">
+<a class="item" href="g/weekly-report.html"><img src="img/weekly-report.webp" alt=""><span><b>주간보고 10분 컷 클로드 프롬프트 24개 + 보고서 양식</b><small>2026-11-03 · 프롬프트 24개</small></span></a></div>
+<footer><a href="privacy.html">개인정보처리방침</a> · © 2026 daily_ai_bot</footer></div>
+</body></html>
