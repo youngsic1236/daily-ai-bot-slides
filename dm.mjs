@@ -6,7 +6,8 @@
 //
 // 게시물별 키워드·자료와 문구는 dm-campaigns.json:
 //   { "settings": { "message": "...{title}...{link}", "public_replies": [...], "max_per_run": 30 },
-//     "<미디어 ID>": { "keyword": "자료", "title": "...", "link": "https://..." } }
+//     "<미디어 ID>": { "title": "...", "link": "https://...", "keyword": "(선택) 넣으면 이 단어가 들어간 댓글에만" } }
+// keyword가 없으면 내용과 상관없이 모든 댓글(이모지·하트 포함)에 보낸다. 링크가 들어간 댓글은 스팸으로 보고 건너뛴다.
 // 상태 파일 없이 중복을 막는다: 우리 계정 답글이 이미 달린 댓글은 처리한 것으로 본다.
 // 인스타 규칙: 비공개 답장은 댓글당 1번, 댓글 작성 후 7일 이내만 가능.
 import fs from "node:fs";
@@ -46,7 +47,7 @@ const { username: myName } = await api("GET", me, { fields: "username" });
 let sent = 0;
 const max = settings.max_per_run ?? 30;
 for (const [mediaId, c] of Object.entries(campaigns)) {
-  if (!c.keyword || !c.link) continue;
+  if (!c.link) continue;
   let comments;
   try {
     comments = (await api("GET", `${mediaId}/comments`, { fields: "id,text,username,timestamp,replies{username}", limit: "50" })).data;
@@ -58,7 +59,8 @@ for (const [mediaId, c] of Object.entries(campaigns)) {
     if (sent >= max) break;
     if (cm.username === myName || Date.now() - new Date(cm.timestamp) > WEEK) continue;
     if (cm.replies?.data?.some((r) => r.username === myName)) continue; // 이미 처리한 댓글
-    if (!norm(cm.text).includes(norm(c.keyword))) continue;
+    if (c.keyword && !norm(cm.text).includes(norm(c.keyword))) continue;
+    if (/https?://|www.|.com/i.test(cm.text ?? "")) continue; // 링크 댓글은 스팸
     const text = (settings.message ?? "요청하신 자료 보내드려요 👇\n{title}\n{link}")
       .replaceAll("{title}", c.title ?? "").replaceAll("{link}", c.link).replaceAll("{username}", cm.username ?? "");
     if (dry) {
