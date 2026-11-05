@@ -1,0 +1,162 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>회의 녹음 하나로 회의록·할 일·메일 끝내는 프롬프트 24개 — daily_ai_bot</title><meta name="description" content="회의 정리가 오래 걸리는 건 받아쓰기를 처음부터 다시 읽으며 결정과 할 일을 골라내기 때문입니다."><meta property="og:title" content="회의 녹음 하나로 회의록·할 일·메일 끝내는 프롬프트 24개"><meta property="og:description" content="회의 정리가 오래 걸리는 건 받아쓰기를 처음부터 다시 읽으며 결정과 할 일을 골라내기 때문입니다."><meta property="og:image" content="https://youngsic1236.github.io/daily-ai-bot-slides/img/2026-11-06.webp"><meta property="og:type" content="article">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--bg:#0F0F0F;--card:#181C25;--line:#2A2D34;--muted:#9AA5B4;--accent:#5093FF;--fg:#EAEEF2}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Pretendard,sans-serif;word-break:keep-all;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+em{font-style:normal;color:var(--accent)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-size:14px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--fg);text-decoration:none}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+.hero{position:relative;border-radius:24px;overflow:hidden;margin:6px 0 28px;aspect-ratio:4/3;background:#000}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))}
+.hero .badge{position:absolute;left:20px;bottom:18px;z-index:1;display:flex;gap:8px}
+.chip{display:inline-block;font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(80,147,255,.16);color:var(--accent);border:1px solid rgba(80,147,255,.35)}
+h1{font-size:32px;line-height:1.3;font-weight:900;letter-spacing:-.8px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px;color:var(--muted);font-size:14px}
+.meta b{color:var(--fg)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 22px}
+.summary h3{font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.summary ul{padding-left:18px}
+.summary li{margin:4px 0}
+.toc{margin:16px 0 40px}
+.toc h3{font-size:15px;margin-bottom:12px}
+.toc ol{list-style:none;padding:0;counter-reset:t}
+.toc li{counter-increment:t;display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.toc li:first-child{border-top:0}
+.toc li::before{content:counter(t);width:24px;height:24px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.toc li.lock::after{content:"🔒";margin-left:auto;font-size:13px;opacity:.7}
+h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin:48px 0 6px;scroll-margin-top:20px}
+h2 small{display:block;font-size:13px;color:var(--accent);font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.lead{color:var(--muted);margin-bottom:18px}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden}
+.prompt header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.prompt header b{font-size:16px}
+.prompt header b span{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.copy{font:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.copy.done{background:#2a9d5c}
+.prompt pre{margin:0;padding:16px 18px;white-space:pre-wrap;font-family:inherit;font-size:15px;color:#d6dce4}
+.prompt .ok{padding:0 18px 16px;font-size:13px;color:var(--muted)}
+.prompt .ok::before{content:"✓ ";color:var(--accent);font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:13px}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px}
+.gate{position:relative}
+.gate .blur{filter:blur(4px);opacity:.7;pointer-events:none;user-select:none;max-height:720px;overflow:hidden}
+.gate .unlock{position:absolute;left:0;right:0;top:80px;margin:0 auto;max-width:440px}
+.unlock h3{font-size:19px;margin-bottom:6px}
+.unlock p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.unlock input[type=email]{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0b0d12;color:var(--fg);margin-bottom:10px}
+.unlock label{display:flex;gap:8px;font-size:13px;color:var(--muted);margin:6px 0;align-items:flex-start}
+.unlock .btn{width:100%;margin-top:10px;font:inherit;font-weight:800;font-size:16px;padding:14px;border:0;border-radius:12px;background:var(--accent);color:#fff;cursor:pointer}
+.unlock .notice{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(15,15,15,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.bar .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}
+.bar a{background:var(--accent);color:#fff;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:10px;white-space:nowrap}
+.hub h1{margin-top:10px}
+.search{width:100%;font:inherit;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);margin:18px 0}
+.item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin:10px 0;text-decoration:none}
+.item img{width:64px;height:80px;border-radius:10px;object-fit:cover;flex:none;background:#000}
+.item b{font-size:15px;line-height:1.45}
+.item small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.item::after{content:"→";margin-left:auto;color:var(--accent);font-weight:800}
+footer{margin-top:60px;color:var(--muted);font-size:12px}
+footer a{color:var(--muted)}
+@media (max-width:520px){h1{font-size:26px}h2{font-size:21px}}</style></head><body><div class="wrap">
+<div class="top"><a class="brand" href="../index.html"><span class="logo">D</span>daily_ai_bot</a><span>자료 모음</span></div>
+<div class="hero"><img src="../img/2026-11-06.webp" alt=""><div class="badge"><span class="chip">업무 프롬프트</span></div></div>
+<h1>회의 녹음 <em>하나</em>로<br>회의록·할 일·메일 끝내는 프롬프트 24개</h1>
+<div class="meta"><span>읽는 데 <b>14분</b></span><span>프롬프트 <b>24개</b></span><span>파트 <b>5개</b></span><span>2026-11-06 공개</span></div>
+<div class="box summary"><h3>SUMMARY</h3><ul><li>회의 정리가 오래 걸리는 건 받아쓰기를 처음부터 다시 읽으며 결정과 할 일을 골라내기 때문입니다.</li><li>녹음 받아쓰기 하나로 회의록 → 할 일 표 → 후속 메일까지 이어서 만드는 프롬프트 24개와 회의록 양식, 회의 직후 10분 순서를 담았습니다.</li></ul></div>
+<div class="box toc"><h3>이 자료에 담긴 것</h3><ol><li class="">받아쓰기로 회의록을 만든다</li><li class="">할 일을 사람별로 나눈다</li><li class="lock">후속 메일과 공유로 마무리한다</li><li class="lock">그대로 쓰는 회의록 양식</li><li class="lock">회의 끝나고 10분 순서</li><li class="lock">자주 묻는 질문</li></ol></div>
+<h2 id="s0"><small>PART 1 · 3분</small>받아쓰기로 회의록을 만든다</h2>
+<p class="lead">휴대폰 녹음 앱이나 회의 앱의 받아쓰기(텍스트)를 그대로 붙여 넣으세요. 다듬지 않아도 됩니다.</p>
+<div class="prompt"><header><b><span>01</span>지어내기 금지 + 결정</b><button class="copy">복사</button></header>
+<pre>아래는 회의 받아쓰기야. 받아쓰기에 없는 내용은 절대 쓰지 마.
+이 회의에서 확정된 결정만 번호 목록으로 정리해 줘.
+논의만 하고 정하지 않은 건 빼.
+
+[받아쓰기 붙여넣기]</pre><div class="ok">확정된 결정만 번호 목록으로 나오면 성공입니다.</div></div><div class="prompt"><header><b><span>02</span>안건별 정리</b><button class="copy">복사</button></header>
+<pre>회의를 안건별로 나눠 줘.
+안건마다 논의 요약 2줄, 결론 1줄. 결론이 없으면 '미결'로 표시.</pre></div><div class="prompt"><header><b><span>03</span>발언자별 의견</b><button class="copy">복사</button></header>
+<pre>누가 어떤 의견을 냈는지 사람별로 한 줄씩 정리해 줘.
+이름이 불분명하면 '참석자1'처럼 표시.</pre></div><div class="prompt"><header><b><span>04</span>결론부터 3줄</b><button class="copy">복사</button></header>
+<pre>회의에 못 온 사람도 바로 이해하게 결론부터 3줄로 요약해 줘.</pre></div><div class="prompt"><header><b><span>05</span>숫자·날짜 표</b><button class="copy">복사</button></header>
+<pre>회의에서 나온 숫자와 날짜만 표로 뽑아 줘.
+열: 항목 · 값 · 받아쓰기에서 나온 문장</pre></div><div class="prompt"><header><b><span>06</span>미결 사항</b><button class="copy">복사</button></header>
+<pre>답이 안 나온 질문과 다음에 정해야 할 것만 따로 목록으로 뽑아 줘.</pre></div><div class="prompt"><header><b><span>07</span>회의록 양식 맞추기</b><button class="copy">복사</button></header>
+<pre>지금까지 정리한 내용을 아래 순서의 회의록으로 써 줘.
+일시 · 참석자 · 안건 · 결정 사항 · 할 일 · 미결 사항 · 다음 회의</pre></div><div class="prompt"><header><b><span>08</span>오해 소지 점검</b><button class="copy">복사</button></header>
+<pre>이 회의록에서 참석자마다 다르게 이해할 수 있는 애매한 문장을 찾아 더 분명하게 고쳐 줘.</pre></div>
+
+<h2 id="s1"><small>PART 2 · 3분</small>할 일을 사람별로 나눈다</h2>
+<p class="lead">같은 대화창에서 이어서 보내세요. 회의록을 다시 붙일 필요가 없습니다.</p>
+<div class="prompt"><header><b><span>09</span>할 일 표</b><button class="copy">복사</button></header>
+<pre>회의에서 나온 할 일을 표로 만들어 줘.
+열: 할 일 · 담당 · 마감 · 관련 결정
+담당이 불분명하면 '미정', 마감이 없으면 '정해야 함'.</pre><div class="ok">모든 할 일에 담당·마감 칸이 채워지거나 '미정'으로 표시되면 성공입니다.</div></div><div class="prompt"><header><b><span>10</span>내 할 일만</b><button class="copy">복사</button></header>
+<pre>위 표에서 [내 이름]에게 떨어진 일만 마감이 가까운 순서로 뽑아 줘.
+각 일마다 첫 번째로 할 행동 한 줄도.</pre></div><div class="prompt"><header><b><span>11</span>담당 미정 정리</b><button class="copy">복사</button></header>
+<pre>담당이 '미정'인 일마다 회의 내용을 보고 가장 적합해 보이는 사람과 이유를 제안해 줘.</pre></div><div class="prompt"><header><b><span>12</span>의존 관계</b><button class="copy">복사</button></header>
+<pre>할 일 중에 다른 일이 끝나야 시작할 수 있는 것을 찾아 순서를 정리해 줘.</pre></div><div class="prompt"><header><b><span>13</span>마감 현실성</b><button class="copy">복사</button></header>
+<pre>마감이 너무 촉박해 보이는 일을 찾아 이유와 조정안을 제안해 줘.</pre></div><div class="prompt"><header><b><span>14</span>체크리스트</b><button class="copy">복사</button></header>
+<pre>할 일 표를 체크박스 목록으로 바꿔 줘. 사람별로 묶어서.</pre></div><div class="prompt"><header><b><span>15</span>리마인더 문구</b><button class="copy">복사</button></header>
+<pre>마감 하루 전 담당자에게 보낼 알림 메시지를 할 일마다 한 줄씩 써 줘. 부드러운 말투로.</pre></div><div class="prompt"><header><b><span>16</span>다음 회의 안건</b><button class="copy">복사</button></header>
+<pre>미결 사항과 할 일 진행 상황으로 다음 회의 안건 초안을 3개 만들어 줘.</pre></div>
+
+<div class="gate"><div class="blur"><h2 id="s2"><small>PART 3 · 4분</small>후속 메일과 공유로 마무리한다</h2>
+<p class="lead">회의 끝나고 1시간 안에 보내는 후속 메일이 할 일을 실제로 움직이게 합니다.</p>
+<div class="prompt"><header><b><span>17</span>참석자 후속 메일</b><button class="copy">복사</button></header>
+<pre>참석자에게 보낼 후속 메일을 써 줘.
+제목 1줄, 본문: 오늘 결정 3줄 · 할 일 표 · 다음 회의 일정 · 수정할 내용 있으면 회신 부탁 한 줄.</pre><div class="ok">제목과 본문 네 부분이 갖춰지면 성공입니다.</div></div><div class="prompt"><header><b><span>18</span>불참자 공유</b><button class="copy">복사</button></header>
+<pre>회의에 오지 못한 사람에게 보낼 요약을 5줄로 써 줘.
+그 사람에게 떨어진 일이 있으면 맨 위에.</pre></div><div class="prompt"><header><b><span>19</span>메신저 공지</b><button class="copy">복사</button></header>
+<pre>팀 채팅방에 올릴 공지로 바꿔 줘. 7줄 이내, 할 일은 '@이름' 형식으로.</pre></div><div class="prompt"><header><b><span>20</span>상사 보고</b><button class="copy">복사</button></header>
+<pre>이 회의 결과를 팀장에게 보고할 3줄 요약으로 바꿔 줘. 결정, 위험, 필요한 지원.</pre></div><div class="prompt"><header><b><span>21</span>외부 공유용</b><button class="copy">복사</button></header>
+<pre>외부 협력사에 보낼 버전으로 바꿔 줘. 내부 의견과 민감한 숫자는 빼고.</pre></div><div class="prompt"><header><b><span>22</span>영어 버전</b><button class="copy">복사</button></header>
+<pre>참석자 후속 메일을 자연스러운 비즈니스 영어로 바꿔 줘.</pre></div><div class="prompt"><header><b><span>23</span>회의 돌아보기</b><button class="copy">복사</button></header>
+<pre>이 회의에서 시간이 낭비된 부분 3가지와 다음 회의에서 바꿀 점을 제안해 줘.</pre></div><div class="prompt"><header><b><span>24</span>다음에 쓸 템플릿</b><button class="copy">복사</button></header>
+<pre>오늘 쓴 회의록과 후속 메일 형식을 다음 회의에도 쓸 수 있게 빈칸 템플릿으로 만들어 줘.</pre></div>
+
+<h2 id="s3"><small>보너스 1</small>그대로 쓰는 회의록 양식</h2>
+<p class="lead">PART 1의 '회의록 양식 맞추기' 뒤에 &quot;아래 양식에 맞춰 줘&quot;와 함께 붙여 넣으세요.</p>
+
+
+<div class="prompt"><header><b>MEETING-NOTES.TXT</b><button class="copy">복사</button></header><pre>[회의록] 회의명: 
+일시: [날짜 시간] · 장소: 
+참석: 
+
+■ 결정 사항
+1. 
+2. 
+
+■ 할 일
+| 할 일 | 담당 | 마감 |
+|  |  |  |
+
+■ 미결 사항
+- 
+
+■ 다음 회의
+- 일시: 
+- 안건: </pre></div><h2 id="s4"><small>보너스 2</small>회의 끝나고 10분 순서</h2>
+<p class="lead">자리에 돌아오자마자 이 순서대로 하면 정리가 10분 안에 끝납니다.</p>
+
+<table><thead><tr><th>시간</th><th>할 일</th><th>쓰는 프롬프트</th></tr></thead><tbody><tr><td>0~2분</td><td>받아쓰기 붙이고 결정만 뽑기</td><td>01</td></tr><tr><td>2~4분</td><td>회의록 양식으로 정리</td><td>07</td></tr><tr><td>4~6분</td><td>할 일 표 + 내 할 일</td><td>09 · 10</td></tr><tr><td>6~9분</td><td>참석자 후속 메일</td><td>17</td></tr><tr><td>9~10분</td><td>팀 채팅방 공지</td><td>19</td></tr></tbody></table>
+<h2 id="faq"><small>FAQ</small>자주 묻는 질문</h2><div class="faq"><details><summary>받아쓰기는 어디서 구하나요?</summary><p>휴대폰 기본 녹음 앱이나 회의 앱 대부분에 받아쓰기(텍스트 변환) 기능이 있습니다. 회사에서 쓰는 도구의 기능을 먼저 확인해 보세요.</p></details><details><summary>받아쓰기가 너무 길어요.</summary><p>두세 번 나눠 붙이고 마지막에 '지금까지 붙인 받아쓰기 전체로'라고 쓴 뒤 01번을 보내세요.</p></details><details><summary>녹음해도 되나요?</summary><p>회의 녹음은 참석자에게 미리 알리고 동의를 받는 게 원칙입니다. 회사 규정도 확인하세요.</p></details><details><summary>AI가 없는 결정을 만들어요.</summary><p>01번 첫 줄의 '받아쓰기에 없는 내용은 절대 쓰지 마'를 빼지 말고, 08번으로 애매한 문장을 한 번 더 점검하세요.</p></details></div></div><div class="unlock box"><h3>나머지 3개 파트 열기</h3><p>이메일만 남기면 바로 열려요. 다음 자료가 나오면 먼저 알려드릴게요.</p>
+<form><input type="email" name="email" placeholder="you@example.com" required>
+<label><input type="checkbox" name="agree" required> (필수) 개인정보 수집·이용에 동의합니다.</label>
+<label><input type="checkbox" name="ad"> (선택) 새 자료·소식 이메일 수신에 동의합니다.</label>
+<button class="btn">무료로 전체 열기</button>
+<div class="notice">수집 항목: 이메일 · 목적: 자료 열람 확인과 새 자료 안내(선택 동의 시) · 보관: 동의 철회 또는 수집 후 1년 중 빠른 날까지 · 동의를 거부할 수 있으며, 거부 시 잠긴 파트를 볼 수 없습니다. <a href="../privacy.html">개인정보처리방침</a></div></form></div></div>
+<div class="bar"><div class="in"><span>매일 하나씩, 복사해서 쓰는 AI 업무 자료</span><a href="https://www.instagram.com/daily_ai_bot/">팔로우하기</a></div></div>
+<footer><a href="../privacy.html">개인정보처리방침</a> · © 2026 daily_ai_bot</footer></div>
+<script>document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{const t=b.closest('.prompt').querySelector('pre').innerText;try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove()}b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500)});const g=document.querySelector('.gate');if(g){const k='unlocked:'+location.pathname;const open=()=>{g.querySelector('.blur').classList.remove('blur');g.querySelector('.unlock').remove()};try{if(localStorage.getItem(k))open()}catch(e){}
+g.querySelector('form').onsubmit=async(e)=>{e.preventDefault();const f=new FormData(e.target);try{localStorage.setItem(k,'1')}catch(e){}open()}}</script></body></html>
