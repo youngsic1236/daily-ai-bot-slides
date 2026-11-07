@@ -1,0 +1,166 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>엑셀 수식 몰라도 말로 시키는 프롬프트 24개 — daily_ai_bot</title><meta name="description" content="수식이 어려운 건 함수 이름을 몰라서가 아니라, 내 표의 어느 칸을 어떻게 가리켜야 하는지 설명할 방법을 몰라서입니다."><meta property="og:title" content="엑셀 수식 몰라도 말로 시키는 프롬프트 24개"><meta property="og:description" content="수식이 어려운 건 함수 이름을 몰라서가 아니라, 내 표의 어느 칸을 어떻게 가리켜야 하는지 설명할 방법을 몰라서입니다."><meta property="og:image" content="https://youngsic1236.github.io/daily-ai-bot-slides/img/2026-11-08.webp"><meta property="og:type" content="article">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--bg:#0F0F0F;--card:#181C25;--line:#2A2D34;--muted:#9AA5B4;--accent:#5093FF;--fg:#EAEEF2}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Pretendard,sans-serif;word-break:keep-all;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+em{font-style:normal;color:var(--accent)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-size:14px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--fg);text-decoration:none}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+.hero{position:relative;border-radius:24px;overflow:hidden;margin:6px 0 28px;aspect-ratio:4/3;background:#000}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))}
+.hero .badge{position:absolute;left:20px;bottom:18px;z-index:1;display:flex;gap:8px}
+.chip{display:inline-block;font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(80,147,255,.16);color:var(--accent);border:1px solid rgba(80,147,255,.35)}
+h1{font-size:32px;line-height:1.3;font-weight:900;letter-spacing:-.8px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px;color:var(--muted);font-size:14px}
+.meta b{color:var(--fg)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 22px}
+.summary h3{font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.summary ul{padding-left:18px}
+.summary li{margin:4px 0}
+.toc{margin:16px 0 40px}
+.toc h3{font-size:15px;margin-bottom:12px}
+.toc ol{list-style:none;padding:0;counter-reset:t}
+.toc li{counter-increment:t;display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.toc li:first-child{border-top:0}
+.toc li::before{content:counter(t);width:24px;height:24px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.toc li.lock::after{content:"🔒";margin-left:auto;font-size:13px;opacity:.7}
+h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin:48px 0 6px;scroll-margin-top:20px}
+h2 small{display:block;font-size:13px;color:var(--accent);font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.lead{color:var(--muted);margin-bottom:18px}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden}
+.prompt header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.prompt header b{font-size:16px}
+.prompt header b span{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.copy{font:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.copy.done{background:#2a9d5c}
+.prompt pre{margin:0;padding:16px 18px;white-space:pre-wrap;font-family:inherit;font-size:15px;color:#d6dce4}
+.prompt .ok{padding:0 18px 16px;font-size:13px;color:var(--muted)}
+.prompt .ok::before{content:"✓ ";color:var(--accent);font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:13px}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px}
+.gate{position:relative}
+.gate .blur{filter:blur(4px);opacity:.7;pointer-events:none;user-select:none;max-height:720px;overflow:hidden}
+.gate .unlock{position:absolute;left:0;right:0;top:80px;margin:0 auto;max-width:440px}
+.unlock h3{font-size:19px;margin-bottom:6px}
+.unlock p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.unlock input[type=email]{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0b0d12;color:var(--fg);margin-bottom:10px}
+.unlock label{display:flex;gap:8px;font-size:13px;color:var(--muted);margin:6px 0;align-items:flex-start}
+.unlock .btn{width:100%;margin-top:10px;font:inherit;font-weight:800;font-size:16px;padding:14px;border:0;border-radius:12px;background:var(--accent);color:#fff;cursor:pointer}
+.unlock .notice{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(15,15,15,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.bar .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}
+.bar a{background:var(--accent);color:#fff;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:10px;white-space:nowrap}
+.hub h1{margin-top:10px}
+.search{width:100%;font:inherit;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);margin:18px 0}
+.item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin:10px 0;text-decoration:none}
+.item img{width:64px;height:80px;border-radius:10px;object-fit:cover;flex:none;background:#000}
+.item b{font-size:15px;line-height:1.45}
+.item small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.item::after{content:"→";margin-left:auto;color:var(--accent);font-weight:800}
+footer{margin-top:60px;color:var(--muted);font-size:12px}
+footer a{color:var(--muted)}
+@media (max-width:520px){h1{font-size:26px}h2{font-size:21px}}</style></head><body><div class="wrap">
+<div class="top"><a class="brand" href="../index.html"><span class="logo">D</span>daily_ai_bot</a><span>자료 모음</span></div>
+<div class="hero"><img src="../img/2026-11-08.webp" alt=""><div class="badge"><span class="chip">업무 프롬프트</span></div></div>
+<h1>엑셀 수식 <em>몰라도</em><br>말로 시키는 프롬프트 24개</h1>
+<div class="meta"><span>읽는 데 <b>14분</b></span><span>프롬프트 <b>24개</b></span><span>파트 <b>5개</b></span><span>2026-11-08 공개</span></div>
+<div class="box summary"><h3>SUMMARY</h3><ul><li>수식이 어려운 건 함수 이름을 몰라서가 아니라, 내 표의 어느 칸을 어떻게 가리켜야 하는지 설명할 방법을 몰라서입니다.</li><li>표 구조를 알려 주는 방법부터 수식 만들기, 오류 고치기, 구글 시트로 옮기기까지 프롬프트 24개와 표 구조 체크리스트를 담았습니다.</li></ul></div>
+<div class="box toc"><h3>이 자료에 담긴 것</h3><ol><li class="">내 표를 정확히 알려 준다</li><li class="">오류와 복잡한 수식을 고친다</li><li class="lock">표 자체를 일하기 좋게 만든다</li><li class="lock">AI에게 표를 설명하는 양식</li><li class="lock">계산하기 좋은 표 체크리스트</li><li class="lock">자주 묻는 질문</li></ol></div>
+<h2 id="s0"><small>PART 1 · 준비 1분</small>내 표를 정확히 알려 준다</h2>
+<p class="lead">AI가 틀린 수식을 주는 대부분의 이유는 표 모양을 모르기 때문입니다. 먼저 머리글 행과 예시 2~3줄을 붙여 넣으세요.</p>
+<div class="prompt"><header><b><span>01</span>표 구조 알려주기</b><button class="copy">복사</button></header>
+<pre>내 엑셀 표 구조는 아래와 같아.
+- 시트 이름: [시트명]
+- 1행은 제목, 데이터는 2행부터 [마지막 행]까지
+- 열: A=[내용], B=[내용], C=[내용]
+예시 3줄:
+[예시 붙여넣기]
+앞으로 내가 묻는 수식은 이 표 기준으로 알려 줘.</pre><div class="ok">AI가 표 구조를 다시 요약해 주면 준비 완료입니다.</div></div><div class="prompt"><header><b><span>02</span>말로 수식</b><button class="copy">복사</button></header>
+<pre>[원하는 결과]를 구하는 수식을 알려 줘.
+결과를 넣을 칸: [셀 위치]
+수식, 한 줄 설명, 아래로 복사할 때 주의점을 같이.</pre></div><div class="prompt"><header><b><span>03</span>조건 합계·개수</b><button class="copy">복사</button></header>
+<pre>[열]이 [조건]인 행만 골라서 [금액 열]의 합계와 개수를 구하는 수식을 각각 알려 줘.</pre></div><div class="prompt"><header><b><span>04</span>다른 시트에서 찾아오기</b><button class="copy">복사</button></header>
+<pre>[시트1]의 [키 열] 값으로 [시트2]에서 [가져올 열]을 찾아오는 수식을 알려 줘.
+못 찾으면 빈칸이 나오게.</pre></div><div class="prompt"><header><b><span>05</span>중복 찾기</b><button class="copy">복사</button></header>
+<pre>[열]에 같은 값이 두 번 이상 나오면 옆 칸에 '중복'이라고 표시하는 수식을 알려 줘.</pre></div><div class="prompt"><header><b><span>06</span>날짜 계산</b><button class="copy">복사</button></header>
+<pre>[날짜 열]을 기준으로 오늘까지 몇 일/몇 개월 지났는지 구하는 수식을 각각 알려 줘.</pre></div><div class="prompt"><header><b><span>07</span>글자 나누기·합치기</b><button class="copy">복사</button></header>
+<pre>[열]의 '[예시 값]'에서 [꺼낼 부분]만 꺼내는 수식을 알려 줘.
+반대로 두 칸을 '[형식]'으로 합치는 수식도.</pre></div><div class="prompt"><header><b><span>08</span>순위·상위 N개</b><button class="copy">복사</button></header>
+<pre>[값 열] 기준으로 높은 순 순위를 매기는 수식과, 상위 5개 항목 이름만 뽑는 수식을 알려 줘.</pre></div>
+
+<h2 id="s1"><small>PART 2 · 막힐 때</small>오류와 복잡한 수식을 고친다</h2>
+<p class="lead">오류가 난 수식과 오류 메시지를 그대로 붙여 넣으세요.</p>
+<div class="prompt"><header><b><span>09</span>오류 원인 찾기</b><button class="copy">복사</button></header>
+<pre>아래 수식에서 [오류 메시지]가 나와.
+가능한 원인 3개를 확률 높은 순으로, 각각 확인 방법과 고친 수식을 같이.
+
+[수식 붙여넣기]</pre><div class="ok">원인과 고친 수식이 나오면, 첫 번째 원인부터 하나씩 확인하세요.</div></div><div class="prompt"><header><b><span>10</span>수식 풀어 읽기</b><button class="copy">복사</button></header>
+<pre>이 수식이 무슨 일을 하는지 바깥쪽부터 한 단계씩 쉬운 말로 풀어 줘.
+
+[수식 붙여넣기]</pre></div><div class="prompt"><header><b><span>11</span>중첩 IF 줄이기</b><button class="copy">복사</button></header>
+<pre>이 긴 중첩 IF 수식을 더 짧고 읽기 쉬운 수식으로 바꿔 줘. 결과는 같아야 해.
+
+[수식 붙여넣기]</pre></div><div class="prompt"><header><b><span>12</span>오류 대신 빈칸</b><button class="copy">복사</button></header>
+<pre>이 수식이 오류일 때 빈칸이나 0이 나오게 감싸 줘. 어떤 경우가 좋은지도 한 줄로.</pre></div><div class="prompt"><header><b><span>13</span>옛 버전 호환</b><button class="copy">복사</button></header>
+<pre>이 수식을 [엑셀 버전]에서도 되게 바꿔 줘. 새 버전 전용 함수를 쓰고 있으면 대체 방법으로.</pre></div><div class="prompt"><header><b><span>14</span>구글 시트로</b><button class="copy">복사</button></header>
+<pre>같은 기능을 구글 시트 수식으로 바꿔 줘. 다르게 동작하는 부분이 있으면 알려 줘.</pre></div><div class="prompt"><header><b><span>15</span>검산하기</b><button class="copy">복사</button></header>
+<pre>이 수식 결과가 맞는지 손으로 확인할 수 있게 예시 3줄로 계산 과정을 보여 줘.</pre></div><div class="prompt"><header><b><span>16</span>느린 파일</b><button class="copy">복사</button></header>
+<pre>수식이 많아 파일이 느려. 이 표에서 계산을 줄일 방법 3가지를 제안해 줘.</pre></div>
+
+<div class="gate"><div class="blur"><h2 id="s2"><small>PART 3 · 한 단계 더</small>표 자체를 일하기 좋게 만든다</h2>
+<p class="lead">수식이 계속 꼬인다면 표 구조가 원인일 때가 많습니다.</p>
+<div class="prompt"><header><b><span>17</span>표 구조 진단</b><button class="copy">복사</button></header>
+<pre>내 표 구조에서 계산을 어렵게 만드는 문제(합친 셀, 한 칸에 여러 값 등)를 찾아 고칠 방법을 알려 줘.</pre><div class="ok">문제 목록과 고친 표 구조가 나오면 성공입니다.</div></div><div class="prompt"><header><b><span>18</span>조건부 서식</b><button class="copy">복사</button></header>
+<pre>[조건]인 행 전체를 [색]으로 칠하는 조건부 서식 규칙과 설정 순서를 알려 줘.</pre></div><div class="prompt"><header><b><span>19</span>드롭다운 만들기</b><button class="copy">복사</button></header>
+<pre>[열]에 [값 목록]만 고를 수 있는 드롭다운을 만드는 순서를 알려 줘.</pre></div><div class="prompt"><header><b><span>20</span>요약 표</b><button class="copy">복사</button></header>
+<pre>이 데이터로 [기준]별 합계·평균·개수 요약 표를 만드는 방법을 피벗 테이블과 수식 두 가지로 알려 줘.</pre></div><div class="prompt"><header><b><span>21</span>월별 집계</b><button class="copy">복사</button></header>
+<pre>[날짜 열] 기준으로 월별 합계 표를 만드는 수식을 알려 줘. 월은 1월~12월 고정.</pre></div><div class="prompt"><header><b><span>22</span>입력 실수 막기</b><button class="copy">복사</button></header>
+<pre>[열]에 잘못된 값(빈칸, 음수, 형식 오류)이 들어가면 표시되게 하는 방법을 알려 줘.</pre></div><div class="prompt"><header><b><span>23</span>그래프 추천</b><button class="copy">복사</button></header>
+<pre>이 요약 표를 보여 주기 가장 좋은 그래프 종류와 이유, 만드는 순서를 알려 줘.</pre></div><div class="prompt"><header><b><span>24</span>반복 작업 줄이기</b><button class="copy">복사</button></header>
+<pre>매주 [반복 작업]을 하고 있어. 수식이나 기능으로 손을 줄일 방법을 쉬운 순서대로 알려 줘.</pre></div>
+
+<h2 id="s3"><small>보너스 1</small>AI에게 표를 설명하는 양식</h2>
+<p class="lead">PART 1의 첫 프롬프트 대신 이 양식을 채워 보내면 수식 정확도가 확 올라갑니다.</p>
+
+
+<div class="prompt"><header><b>MY-TABLE.TXT</b><button class="copy">복사</button></header><pre>[내 표 설명]
+프로그램: 엑셀 [버전] / 구글 시트
+시트 이름: 
+제목 행: [1]행, 데이터: [2]행 ~ [끝]행
+
+열 설명
+A: 
+B: 
+C: 
+D: 
+
+예시 3줄 (실제 값 대신 비슷한 가짜 값도 OK)
+1) 
+2) 
+3) 
+
+원하는 결과: 
+결과를 넣을 칸: </pre></div><h2 id="s4"><small>보너스 2</small>계산하기 좋은 표 체크리스트</h2>
+<p class="lead">이것만 지켜도 수식 오류가 크게 줄어듭니다.</p>
+
+<table><thead><tr><th>확인할 것</th><th>왜</th><th>고치는 법</th></tr></thead><tbody><tr><td>합친 셀이 없다</td><td>범위가 어긋나 계산이 틀어짐</td><td>셀 병합 해제 후 값 채우기</td></tr><tr><td>한 칸에 값 하나</td><td>'서울/부산'은 나눠야 셀 수 있음</td><td>열을 나누기 (PART 1 · 07)</td></tr><tr><td>날짜는 날짜 형식</td><td>글자 날짜는 계산 안 됨</td><td>표시 형식을 날짜로</td></tr><tr><td>숫자에 단위 없음</td><td>'1,000원'은 글자로 인식</td><td>단위는 머리글에</td></tr><tr><td>빈 행이 없다</td><td>중간 빈 행에서 범위가 끊김</td><td>빈 행 삭제</td></tr></tbody></table>
+<h2 id="faq"><small>FAQ</small>자주 묻는 질문</h2><div class="faq"><details><summary>회사 엑셀 파일을 그대로 올려도 되나요?</summary><p>회사 보안 규정을 먼저 확인하세요. 수식을 받는 데는 실제 데이터가 필요 없어서, 비슷한 가짜 값 3줄이면 충분합니다.</p></details><details><summary>받은 수식을 넣었는데 다른 값이 나와요.</summary><p>보너스 1 양식으로 표를 다시 설명하고 '셀 위치를 정확히 맞춰서'를 붙여 다시 물어보세요.</p></details><details><summary>엑셀 버전마다 다른가요?</summary><p>최신 버전 전용 함수가 있어서 다를 수 있습니다. 처음에 버전을 알려 주거나 PART 2의 '옛 버전 호환'을 쓰세요.</p></details><details><summary>챗GPT에서도 되나요?</summary><p>됩니다. 어느 AI든 표 구조를 정확히 알려 주는 게 핵심입니다.</p></details></div></div><div class="unlock box"><h3>나머지 3개 파트 열기</h3><p>이메일만 남기면 바로 열려요. 다음 자료가 나오면 먼저 알려드릴게요.</p>
+<form><input type="email" name="email" placeholder="you@example.com" required>
+<label><input type="checkbox" name="agree" required> (필수) 개인정보 수집·이용에 동의합니다.</label>
+<label><input type="checkbox" name="ad"> (선택) 새 자료·소식 이메일 수신에 동의합니다.</label>
+<button class="btn">무료로 전체 열기</button>
+<div class="notice">수집 항목: 이메일 · 목적: 자료 열람 확인과 새 자료 안내(선택 동의 시) · 보관: 동의 철회 또는 수집 후 1년 중 빠른 날까지 · 동의를 거부할 수 있으며, 거부 시 잠긴 파트를 볼 수 없습니다. <a href="../privacy.html">개인정보처리방침</a></div></form></div></div>
+<div class="bar"><div class="in"><span>매일 하나씩, 복사해서 쓰는 AI 업무 자료</span><a href="https://www.instagram.com/daily_ai_bot/">팔로우하기</a></div></div>
+<footer><a href="../privacy.html">개인정보처리방침</a> · © 2026 daily_ai_bot</footer></div>
+<script>document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{const t=b.closest('.prompt').querySelector('pre').innerText;try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove()}b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500)});const g=document.querySelector('.gate');if(g){const k='unlocked:'+location.pathname;const open=()=>{g.querySelector('.blur').classList.remove('blur');g.querySelector('.unlock').remove()};try{if(localStorage.getItem(k))open()}catch(e){}
+g.querySelector('form').onsubmit=async(e)=>{e.preventDefault();const f=new FormData(e.target);try{localStorage.setItem(k,'1')}catch(e){}open()}}</script></body></html>
