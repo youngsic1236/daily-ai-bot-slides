@@ -1,0 +1,152 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PPT 3시간을 30분으로 줄이는 프롬프트 24개 — daily_ai_bot</title><meta name="description" content="PPT가 오래 걸리는 건 디자인 때문이 아니라 무엇을 어떤 순서로 넣을지 정하지 못한 채 슬라이드부터 열기 때문입니다."><meta property="og:title" content="PPT 3시간을 30분으로 줄이는 프롬프트 24개"><meta property="og:description" content="PPT가 오래 걸리는 건 디자인 때문이 아니라 무엇을 어떤 순서로 넣을지 정하지 못한 채 슬라이드부터 열기 때문입니다."><meta property="og:image" content="https://youngsic1236.github.io/daily-ai-bot-slides/img/2026-11-09.webp"><meta property="og:type" content="article">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--bg:#0F0F0F;--card:#181C25;--line:#2A2D34;--muted:#9AA5B4;--accent:#5093FF;--fg:#EAEEF2}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Pretendard,sans-serif;word-break:keep-all;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+em{font-style:normal;color:var(--accent)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-size:14px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--fg);text-decoration:none}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+.hero{position:relative;border-radius:24px;overflow:hidden;margin:6px 0 28px;aspect-ratio:4/3;background:#000}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))}
+.hero .badge{position:absolute;left:20px;bottom:18px;z-index:1;display:flex;gap:8px}
+.chip{display:inline-block;font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(80,147,255,.16);color:var(--accent);border:1px solid rgba(80,147,255,.35)}
+h1{font-size:32px;line-height:1.3;font-weight:900;letter-spacing:-.8px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px;color:var(--muted);font-size:14px}
+.meta b{color:var(--fg)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 22px}
+.summary h3{font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.summary ul{padding-left:18px}
+.summary li{margin:4px 0}
+.toc{margin:16px 0 40px}
+.toc h3{font-size:15px;margin-bottom:12px}
+.toc ol{list-style:none;padding:0;counter-reset:t}
+.toc li{counter-increment:t;display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.toc li:first-child{border-top:0}
+.toc li::before{content:counter(t);width:24px;height:24px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.toc li.lock::after{content:"🔒";margin-left:auto;font-size:13px;opacity:.7}
+h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin:48px 0 6px;scroll-margin-top:20px}
+h2 small{display:block;font-size:13px;color:var(--accent);font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.lead{color:var(--muted);margin-bottom:18px}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden}
+.prompt header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.prompt header b{font-size:16px}
+.prompt header b span{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.copy{font:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.copy.done{background:#2a9d5c}
+.prompt pre{margin:0;padding:16px 18px;white-space:pre-wrap;font-family:inherit;font-size:15px;color:#d6dce4}
+.prompt .ok{padding:0 18px 16px;font-size:13px;color:var(--muted)}
+.prompt .ok::before{content:"✓ ";color:var(--accent);font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:13px}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px}
+.gate{position:relative}
+.gate .blur{filter:blur(4px);opacity:.7;pointer-events:none;user-select:none;max-height:720px;overflow:hidden}
+.gate .unlock{position:absolute;left:0;right:0;top:80px;margin:0 auto;max-width:440px}
+.unlock h3{font-size:19px;margin-bottom:6px}
+.unlock p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.unlock input[type=email]{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0b0d12;color:var(--fg);margin-bottom:10px}
+.unlock label{display:flex;gap:8px;font-size:13px;color:var(--muted);margin:6px 0;align-items:flex-start}
+.unlock .btn{width:100%;margin-top:10px;font:inherit;font-weight:800;font-size:16px;padding:14px;border:0;border-radius:12px;background:var(--accent);color:#fff;cursor:pointer}
+.unlock .notice{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(15,15,15,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.bar .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}
+.bar a{background:var(--accent);color:#fff;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:10px;white-space:nowrap}
+.hub h1{margin-top:10px}
+.search{width:100%;font:inherit;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);margin:18px 0}
+.item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin:10px 0;text-decoration:none}
+.item img{width:64px;height:80px;border-radius:10px;object-fit:cover;flex:none;background:#000}
+.item b{font-size:15px;line-height:1.45}
+.item small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.item::after{content:"→";margin-left:auto;color:var(--accent);font-weight:800}
+footer{margin-top:60px;color:var(--muted);font-size:12px}
+footer a{color:var(--muted)}
+@media (max-width:520px){h1{font-size:26px}h2{font-size:21px}}</style></head><body><div class="wrap">
+<div class="top"><a class="brand" href="../index.html"><span class="logo">D</span>daily_ai_bot</a><span>자료 모음</span></div>
+<div class="hero"><img src="../img/2026-11-09.webp" alt=""><div class="badge"><span class="chip">업무 프롬프트</span></div></div>
+<h1>PPT <em>3시간</em>을<br>30분으로 줄이는 프롬프트 24개</h1>
+<div class="meta"><span>읽는 데 <b>14분</b></span><span>프롬프트 <b>24개</b></span><span>파트 <b>5개</b></span><span>2026-11-09 공개</span></div>
+<div class="box summary"><h3>SUMMARY</h3><ul><li>PPT가 오래 걸리는 건 디자인 때문이 아니라 무엇을 어떤 순서로 넣을지 정하지 못한 채 슬라이드부터 열기 때문입니다.</li><li>목적 → 목차 → 장별 제목 → 장표 문장 → 발표 대본 순서로 이어 쓰는 프롬프트 24개와 장표 구성 양식, 발표 전 점검표를 담았습니다.</li></ul></div>
+<div class="box toc"><h3>이 자료에 담긴 것</h3><ol><li class="">슬라이드 열기 전에 뼈대를 정한다</li><li class="">장표를 채운다</li><li class="lock">발표 전에 점검한다</li><li class="lock">장표 구성 양식</li><li class="lock">발표 전 점검표</li><li class="lock">자주 묻는 질문</li></ol></div>
+<h2 id="s0"><small>PART 1 · 10분</small>슬라이드 열기 전에 뼈대를 정한다</h2>
+<p class="lead">발표 주제, 듣는 사람, 발표 시간, 가진 자료(메모·보고서)를 먼저 붙여 넣고 시작하세요.</p>
+<div class="prompt"><header><b><span>01</span>목적 한 줄</b><button class="copy">복사</button></header>
+<pre>아래 자료로 [듣는 사람]에게 [발표 시간]분 발표를 해.
+이 발표가 끝났을 때 듣는 사람이 무엇을 결정하거나 알아야 하는지 한 문장으로 써 줘.
+
+[자료 붙여넣기]</pre><div class="ok">결정이나 행동이 들어간 한 문장이 나오면 성공입니다.</div></div><div class="prompt"><header><b><span>02</span>목차 3안</b><button class="copy">복사</button></header>
+<pre>이 목적에 맞는 목차를 3가지 구조로 제안해 줘.
+1) 결론 먼저 2) 문제→원인→해결 3) 시간 순서
+각각 장표 제목 목록과 어떤 상황에 맞는지 한 줄.</pre></div><div class="prompt"><header><b><span>03</span>장표 수와 시간</b><button class="copy">복사</button></header>
+<pre>발표 [시간]분 기준으로 장표 수를 정하고, 장마다 몇 분 쓸지 표로 나눠 줘.</pre></div><div class="prompt"><header><b><span>04</span>결론이 보이는 제목</b><button class="copy">복사</button></header>
+<pre>고른 목차의 장마다 '무엇에 대한 장'이 아니라 '무엇이 결론인 장'인지 보이는 제목을 써 줘.
+예) '매출 현황' → '3분기 매출 12% 감소, 원인은 신규 고객'</pre></div><div class="prompt"><header><b><span>05</span>장별 핵심 문장</b><button class="copy">복사</button></header>
+<pre>장마다 듣는 사람 머리에 남길 문장 하나와 그 근거 2개를 정리해 줘.</pre></div><div class="prompt"><header><b><span>06</span>연결 문장</b><button class="copy">복사</button></header>
+<pre>장과 장 사이를 자연스럽게 잇는 한 줄 문장을 넣어 줘. 발표할 때 그대로 말할 수 있게.</pre></div><div class="prompt"><header><b><span>07</span>청중 맞춤</b><button class="copy">복사</button></header>
+<pre>듣는 사람이 [임원/실무자/고객]일 때 빼거나 줄여야 할 장과 더 자세히 해야 할 장을 골라 줘.</pre></div><div class="prompt"><header><b><span>08</span>요약 장표</b><button class="copy">복사</button></header>
+<pre>전체 발표를 맨 앞에 넣을 요약 장표 1장으로 압축해 줘. 결론 1줄 + 근거 3줄 + 요청 1줄.</pre></div>
+
+<h2 id="s1"><small>PART 2 · 15분</small>장표를 채운다</h2>
+<p class="lead">장 하나씩 붙여 넣고 다듬으세요. 같은 대화창에서 이어 쓰면 앞 내용을 기억합니다.</p>
+<div class="prompt"><header><b><span>09</span>글 줄이기</b><button class="copy">복사</button></header>
+<pre>이 장표 글을 3줄 이내, 줄당 20자 이내로 줄여 줘. 숫자는 남기고 꾸밈말은 빼.
+
+[장표 글]</pre><div class="ok">한눈에 읽히는 3줄이 나오면 성공입니다.</div></div><div class="prompt"><header><b><span>10</span>표로 바꾸기</b><button class="copy">복사</button></header>
+<pre>이 문단을 비교 표로 바꿔 줘. 열은 3개 이내, 가장 중요한 줄을 맨 위로.</pre></div><div class="prompt"><header><b><span>11</span>그래프 추천</b><button class="copy">복사</button></header>
+<pre>이 숫자를 보여 줄 그래프 종류를 추천하고, 그래프에서 강조할 한 가지와 제목 문장을 써 줘.
+
+[숫자 붙여넣기]</pre></div><div class="prompt"><header><b><span>12</span>이미지 아이디어</b><button class="copy">복사</button></header>
+<pre>장마다 넣으면 좋을 이미지나 아이콘 아이디어를 하나씩 제안해 줘. 무료로 구하기 쉬운 것으로.</pre></div><div class="prompt"><header><b><span>13</span>발표 대본</b><button class="copy">복사</button></header>
+<pre>장마다 30초 분량 발표 대본을 써 줘. 실제로 말하는 말투로, 첫 문장은 그 장의 결론.</pre></div><div class="prompt"><header><b><span>14</span>어려운 장 쉽게</b><button class="copy">복사</button></header>
+<pre>이 장표 내용을 처음 듣는 사람도 이해하게 비유 하나를 넣어 다시 써 줘.</pre></div><div class="prompt"><header><b><span>15</span>숫자 강조</b><button class="copy">복사</button></header>
+<pre>이 장표에서 가장 중요한 숫자 하나를 크게 보여 줄 문장으로 바꿔 줘. 예) '전년 대비 2배'</pre></div><div class="prompt"><header><b><span>16</span>부록 분리</b><button class="copy">복사</button></header>
+<pre>본문에 두면 흐름이 끊기는 자세한 내용을 골라 부록 장표로 옮겨 줘.</pre></div>
+
+<div class="gate"><div class="blur"><h2 id="s2"><small>PART 3 · 5분</small>발표 전에 점검한다</h2>
+<p class="lead">발표 전날 마지막 5분이면 됩니다.</p>
+<div class="prompt"><header><b><span>17</span>예상 질문</b><button class="copy">복사</button></header>
+<pre>이 발표를 들은 [듣는 사람]이 할 질문 5개와 각각 30초 답변을 준비해 줘.</pre><div class="ok">질문 5개와 답이 나오면 성공입니다.</div></div><div class="prompt"><header><b><span>18</span>숫자·용어 일치</b><button class="copy">복사</button></header>
+<pre>장표 전체에서 같은 숫자나 용어가 다르게 쓰인 곳을 찾아 줘.</pre></div><div class="prompt"><header><b><span>19</span>시간 맞추기</b><button class="copy">복사</button></header>
+<pre>대본 전체를 소리 내 읽으면 몇 분인지 계산해 주고, [시간]분에 맞게 줄일 곳을 알려 줘.</pre></div><div class="prompt"><header><b><span>20</span>반대 의견</b><button class="copy">복사</button></header>
+<pre>이 발표 내용에 반대할 사람의 입장에서 반론 3개와 대응 문장을 써 줘.</pre></div><div class="prompt"><header><b><span>21</span>첫 30초</b><button class="copy">복사</button></header>
+<pre>발표 시작 30초 대본을 써 줘. 인사는 짧게, 결론과 왜 중요한지를 먼저.</pre></div><div class="prompt"><header><b><span>22</span>마지막 장</b><button class="copy">복사</button></header>
+<pre>마지막 장표를 '감사합니다' 대신 결정 요청이나 다음 행동이 보이는 장으로 바꿔 줘.</pre></div><div class="prompt"><header><b><span>23</span>메일 공유본</b><button class="copy">복사</button></header>
+<pre>발표 후 참석자에게 보낼 메일 본문을 써 줘. 요약 3줄, 결정 사항, 첨부 안내.</pre></div><div class="prompt"><header><b><span>24</span>다음에 쓸 양식</b><button class="copy">복사</button></header>
+<pre>이번 발표 구성을 다음에도 쓸 수 있게 빈칸 양식으로 만들어 줘.</pre></div>
+
+<h2 id="s3"><small>보너스 1</small>장표 구성 양식</h2>
+<p class="lead">PART 1을 마친 뒤 &quot;아래 양식으로 정리해 줘&quot;와 함께 붙여 넣으세요.</p>
+
+
+<div class="prompt"><header><b>SLIDE-PLAN.TXT</b><button class="copy">복사</button></header><pre>[발표 계획]
+발표 목적 (1줄): 
+듣는 사람: 
+발표 시간: [ ]분 / 장표 수: [ ]장
+
+01 요약: 결론 · 근거 3 · 요청
+02 [제목]: 핵심 문장 / 근거 / 그래프·표
+03 [제목]: 핵심 문장 / 근거 / 그래프·표
+04 [제목]: 핵심 문장 / 근거 / 그래프·표
+05 결정 요청 · 다음 단계
+부록: </pre></div><h2 id="s4"><small>보너스 2</small>발표 전 점검표</h2>
+<p class="lead">하나라도 '아니오'면 해당 프롬프트로 고치세요.</p>
+
+<table><thead><tr><th>확인할 것</th><th>기준</th><th>고치는 프롬프트</th></tr></thead><tbody><tr><td>첫 장에 결론이 있나</td><td>요약 장표가 맨 앞</td><td>08</td></tr><tr><td>제목만 읽어도 이해되나</td><td>제목에 결론이 들어감</td><td>04</td></tr><tr><td>장당 글이 3줄 이하인가</td><td>줄당 20자 이내</td><td>09</td></tr><tr><td>숫자가 장표끼리 같은가</td><td>불일치 0개</td><td>18</td></tr><tr><td>시간 안에 끝나나</td><td>대본 기준 시간 이내</td><td>19</td></tr></tbody></table>
+<h2 id="faq"><small>FAQ</small>자주 묻는 질문</h2><div class="faq"><details><summary>디자인까지 해 주나요?</summary><p>이 자료는 내용과 구성을 만드는 프롬프트입니다. 구성이 정해지면 회사 PPT 템플릿에 옮기기만 하면 돼서 디자인 시간이 크게 줄어듭니다.</p></details><details><summary>자료가 하나도 없어도 되나요?</summary><p>주제와 듣는 사람만 알려 주고 01번을 보내면 목차 초안은 나옵니다. 다만 숫자와 근거는 직접 채워야 정확합니다.</p></details><details><summary>회사 자료를 넣어도 되나요?</summary><p>회사 보안 규정을 먼저 확인하세요. 민감한 숫자는 [금액]처럼 가려서 구성만 받아도 충분합니다.</p></details><details><summary>챗GPT에서도 되나요?</summary><p>됩니다. 특정 기능 없이 글만 다루는 프롬프트입니다.</p></details></div></div><div class="unlock box"><h3>나머지 3개 파트 열기</h3><p>이메일만 남기면 바로 열려요. 다음 자료가 나오면 먼저 알려드릴게요.</p>
+<form><input type="email" name="email" placeholder="you@example.com" required>
+<label><input type="checkbox" name="agree" required> (필수) 개인정보 수집·이용에 동의합니다.</label>
+<label><input type="checkbox" name="ad"> (선택) 새 자료·소식 이메일 수신에 동의합니다.</label>
+<button class="btn">무료로 전체 열기</button>
+<div class="notice">수집 항목: 이메일 · 목적: 자료 열람 확인과 새 자료 안내(선택 동의 시) · 보관: 동의 철회 또는 수집 후 1년 중 빠른 날까지 · 동의를 거부할 수 있으며, 거부 시 잠긴 파트를 볼 수 없습니다. <a href="../privacy.html">개인정보처리방침</a></div></form></div></div>
+<div class="bar"><div class="in"><span>매일 하나씩, 복사해서 쓰는 AI 업무 자료</span><a href="https://www.instagram.com/daily_ai_bot/">팔로우하기</a></div></div>
+<footer><a href="../privacy.html">개인정보처리방침</a> · © 2026 daily_ai_bot</footer></div>
+<script>document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{const t=b.closest('.prompt').querySelector('pre').innerText;try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove()}b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500)});const g=document.querySelector('.gate');if(g){const k='unlocked:'+location.pathname;const open=()=>{g.querySelector('.blur').classList.remove('blur');g.querySelector('.unlock').remove()};try{if(localStorage.getItem(k))open()}catch(e){}
+g.querySelector('form').onsubmit=async(e)=>{e.preventDefault();const f=new FormData(e.target);try{localStorage.setItem(k,'1')}catch(e){}open()}}</script></body></html>
