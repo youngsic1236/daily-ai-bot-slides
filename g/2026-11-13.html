@@ -1,0 +1,152 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>회사 자료 AI에 넣기 전 이것 안 보면 큰일 나요 — daily_ai_bot</title><meta name="description" content="AI 사고는 대부분 악의가 아니라 '이 정도는 괜찮겠지' 하고 고객 이름이나 내부 숫자를 그대로 붙여 넣는 데서 시작됩니다."><meta property="og:title" content="회사 자료 AI에 넣기 전 이것 안 보면 큰일 나요"><meta property="og:description" content="AI 사고는 대부분 악의가 아니라 '이 정도는 괜찮겠지' 하고 고객 이름이나 내부 숫자를 그대로 붙여 넣는 데서 시작됩니다."><meta property="og:image" content="https://youngsic1236.github.io/daily-ai-bot-slides/img/2026-11-13.webp"><meta property="og:type" content="article">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--bg:#0F0F0F;--card:#181C25;--line:#2A2D34;--muted:#9AA5B4;--accent:#5093FF;--fg:#EAEEF2}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Pretendard,sans-serif;word-break:keep-all;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+em{font-style:normal;color:var(--accent)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-size:14px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--fg);text-decoration:none}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+.hero{position:relative;border-radius:24px;overflow:hidden;margin:6px 0 28px;aspect-ratio:4/3;background:#000}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))}
+.hero .badge{position:absolute;left:20px;bottom:18px;z-index:1;display:flex;gap:8px}
+.chip{display:inline-block;font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(80,147,255,.16);color:var(--accent);border:1px solid rgba(80,147,255,.35)}
+h1{font-size:32px;line-height:1.3;font-weight:900;letter-spacing:-.8px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px;color:var(--muted);font-size:14px}
+.meta b{color:var(--fg)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 22px}
+.summary h3{font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.summary ul{padding-left:18px}
+.summary li{margin:4px 0}
+.toc{margin:16px 0 40px}
+.toc h3{font-size:15px;margin-bottom:12px}
+.toc ol{list-style:none;padding:0;counter-reset:t}
+.toc li{counter-increment:t;display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.toc li:first-child{border-top:0}
+.toc li::before{content:counter(t);width:24px;height:24px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.toc li.lock::after{content:"🔒";margin-left:auto;font-size:13px;opacity:.7}
+h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin:48px 0 6px;scroll-margin-top:20px}
+h2 small{display:block;font-size:13px;color:var(--accent);font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.lead{color:var(--muted);margin-bottom:18px}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden}
+.prompt header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.prompt header b{font-size:16px}
+.prompt header b span{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.copy{font:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.copy.done{background:#2a9d5c}
+.prompt pre{margin:0;padding:16px 18px;white-space:pre-wrap;font-family:inherit;font-size:15px;color:#d6dce4}
+.prompt .ok{padding:0 18px 16px;font-size:13px;color:var(--muted)}
+.prompt .ok::before{content:"✓ ";color:var(--accent);font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:13px}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px}
+.gate{position:relative}
+.gate .blur{filter:blur(4px);opacity:.7;pointer-events:none;user-select:none;max-height:720px;overflow:hidden}
+.gate .unlock{position:absolute;left:0;right:0;top:80px;margin:0 auto;max-width:440px}
+.unlock h3{font-size:19px;margin-bottom:6px}
+.unlock p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.unlock input[type=email]{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0b0d12;color:var(--fg);margin-bottom:10px}
+.unlock label{display:flex;gap:8px;font-size:13px;color:var(--muted);margin:6px 0;align-items:flex-start}
+.unlock .btn{width:100%;margin-top:10px;font:inherit;font-weight:800;font-size:16px;padding:14px;border:0;border-radius:12px;background:var(--accent);color:#fff;cursor:pointer}
+.unlock .notice{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(15,15,15,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.bar .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}
+.bar a{background:var(--accent);color:#fff;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:10px;white-space:nowrap}
+.hub h1{margin-top:10px}
+.search{width:100%;font:inherit;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);margin:18px 0}
+.item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin:10px 0;text-decoration:none}
+.item img{width:64px;height:80px;border-radius:10px;object-fit:cover;flex:none;background:#000}
+.item b{font-size:15px;line-height:1.45}
+.item small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.item::after{content:"→";margin-left:auto;color:var(--accent);font-weight:800}
+footer{margin-top:60px;color:var(--muted);font-size:12px}
+footer a{color:var(--muted)}
+@media (max-width:520px){h1{font-size:26px}h2{font-size:21px}}</style></head><body><div class="wrap">
+<div class="top"><a class="brand" href="../index.html"><span class="logo">D</span>daily_ai_bot</a><span>자료 모음</span></div>
+<div class="hero"><img src="../img/2026-11-13.webp" alt=""><div class="badge"><span class="chip">보안 체크리스트</span></div></div>
+<h1>회사 자료 AI에 넣기 전<br><em>이것 안 보면</em> 큰일 나요</h1>
+<div class="meta"><span>읽는 데 <b>12분</b></span><span>프롬프트 <b>20개</b></span><span>파트 <b>5개</b></span><span>2026-11-13 공개</span></div>
+<div class="box summary"><h3>SUMMARY</h3><ul><li>AI 사고는 대부분 악의가 아니라 '이 정도는 괜찮겠지' 하고 고객 이름이나 내부 숫자를 그대로 붙여 넣는 데서 시작됩니다.</li><li>넣기 전 확인할 것, 민감한 정보를 가리고 쓰는 프롬프트 20개, 팀 AI 사용 규칙 양식과 점검표를 담았습니다.</li></ul></div>
+<div class="box toc"><h3>이 자료에 담긴 것</h3><ol><li class="">회사 규정부터 확인한다</li><li class="">민감한 정보를 가리고 쓴다</li><li class="lock">결과를 확인하고 흔적을 정리한다</li><li class="lock">팀 AI 사용 규칙 양식</li><li class="lock">넣기 전 10초 점검표</li><li class="lock">자주 묻는 질문</li></ol></div>
+<h2 id="s0"><small>PART 1 · 넣기 전</small>회사 규정부터 확인한다</h2>
+<p class="lead">먼저 회사 규정을 알아야 무엇을 가려야 할지 정해집니다. 아래 프롬프트는 회사 자료 없이 쓰는 것들입니다.</p>
+<div class="prompt"><header><b><span>01</span>확인할 질문 목록</b><button class="copy">복사</button></header>
+<pre>회사에서 AI 도구를 업무에 쓰기 전에 보안팀이나 팀장에게 확인해야 할 질문 목록을 만들어 줘.
+허용 도구, 넣으면 안 되는 정보, 업무용 계정 여부 중심으로 7개.</pre><div class="ok">보안팀에 그대로 물어볼 질문 7개가 나오면 성공입니다.</div></div><div class="prompt"><header><b><span>02</span>정보 등급 나누기</b><button class="copy">복사</button></header>
+<pre>내 업무에서 다루는 정보 종류는 [정보 종류 나열]이야.
+이걸 '그대로 넣어도 됨 / 가리고 넣기 / 절대 넣지 않기' 세 등급으로 나누는 기준을 제안해 줘.
+최종 판단은 회사 규정을 따른다는 전제로.</pre></div><div class="prompt"><header><b><span>03</span>규정 요약</b><button class="copy">복사</button></header>
+<pre>아래는 우리 회사 AI 사용 규정이야. 내가 지켜야 할 것만 5줄로 요약하고, 애매한 부분은 따로 질문으로 정리해 줘.
+
+[규정 붙여넣기]</pre></div><div class="prompt"><header><b><span>04</span>설정 확인 목록</b><button class="copy">복사</button></header>
+<pre>AI 서비스를 업무에 쓸 때 계정 설정에서 확인해야 할 항목(대화 기록, 학습 사용 여부, 공유 링크 등)을 일반적인 체크리스트로 만들어 줘.
+서비스마다 메뉴 이름이 다를 수 있으니 무엇을 찾아봐야 하는지 위주로.</pre></div>
+
+<h2 id="s1"><small>PART 2 · 가리고 쓰기</small>민감한 정보를 가리고 쓴다</h2>
+<p class="lead">가려야 하는 정보가 있다면 먼저 직접 지우거나, 회사가 허용한 범위 안에서 아래처럼 바꿔 쓰세요.</p>
+<div class="prompt"><header><b><span>05</span>구조만 묻기</b><button class="copy">복사</button></header>
+<pre>실제 데이터 없이 질문할게. 내 표는 열이 [열 이름들]이고, 아래는 내가 만든 가짜 예시 3줄이야.
+이 구조로 [하고 싶은 일]을 하는 방법을 알려 줘.
+
+[가짜 예시 3줄]</pre><div class="ok">실제 데이터 없이 방법을 얻으면 성공입니다.</div></div><div class="prompt"><header><b><span>06</span>가명으로 바꾸는 규칙</b><button class="copy">복사</button></header>
+<pre>문서에서 사람 이름은 [이름1], [이름2], 회사 이름은 [고객A], [고객B], 금액은 [금액1]처럼 바꾸는 규칙표 양식을 만들어 줘.
+이 표는 내 PC에만 보관할 거야.</pre></div><div class="prompt"><header><b><span>07</span>요약해서 묻기</b><button class="copy">복사</button></header>
+<pre>아래는 원문 대신 내가 직접 요약한 상황이야. 이 요약만 보고 [질문]에 답해 줘.
+
+[내 요약]</pre></div><div class="prompt"><header><b><span>08</span>숫자 비율로</b><button class="copy">복사</button></header>
+<pre>실제 금액 대신 비율로 물을게. 작년 대비 매출 +12%, 원가 +20%일 때 이익률 변화와 보고서에 쓸 해석을 알려 줘.</pre></div><div class="prompt"><header><b><span>09</span>가린 결과 확인</b><button class="copy">복사</button></header>
+<pre>아래 글에 아직 실명, 회사명, 연락처, 주소, 계좌 같은 정보가 남아 있는지 찾아서 목록으로만 알려 줘.
+
+[가린 글]</pre></div><div class="prompt"><header><b><span>10</span>일반 상황으로</b><button class="copy">복사</button></header>
+<pre>우리 회사 상황을 일반적인 사례로 바꿔서 물을게: [일반화한 상황]. 이런 경우 보통 어떻게 대응하는지 알려 줘.</pre></div><div class="prompt"><header><b><span>11</span>코드 질문</b><button class="copy">복사</button></header>
+<pre>아래 코드에서 비밀번호, 키, 내부 주소는 [SECRET]으로 바꿨어. 이 코드의 오류 원인을 찾아 줘.
+
+[코드]</pre></div><div class="prompt"><header><b><span>12</span>메일 초안</b><button class="copy">복사</button></header>
+<pre>받는 사람과 회사 이름을 [받는 사람], [회사]로 두고 [상황]에 맞는 메일 초안을 써 줘. 실명은 내가 나중에 넣을게.</pre></div>
+
+<div class="gate"><div class="blur"><h2 id="s2"><small>PART 3 · 쓴 뒤에</small>결과를 확인하고 흔적을 정리한다</h2>
+<p class="lead">AI 답을 그대로 쓰는 것도 위험입니다. 사실과 숫자는 반드시 원본과 맞춰 보세요.</p>
+<div class="prompt"><header><b><span>13</span>사실 확인 목록</b><button class="copy">복사</button></header>
+<pre>네 답변에서 내가 원본과 직접 확인해야 할 사실과 숫자를 목록으로 뽑아 줘.</pre><div class="ok">확인할 목록이 나오면 그 항목만 원본과 대조하세요.</div></div><div class="prompt"><header><b><span>14</span>모르는 건 모른다</b><button class="copy">복사</button></header>
+<pre>방금 답에서 확실하지 않은 부분을 표시하고, 왜 확실하지 않은지 한 줄씩 알려 줘.</pre></div><div class="prompt"><header><b><span>15</span>공유 전 점검</b><button class="copy">복사</button></header>
+<pre>이 결과물을 팀에 공유하기 전에 민감한 정보나 확인 안 된 내용이 있는지 점검해 줘.</pre></div><div class="prompt"><header><b><span>16</span>대화 정리 습관</b><button class="copy">복사</button></header>
+<pre>AI 대화 기록을 안전하게 관리하는 습관 5가지를 업무용으로 정리해 줘.</pre></div><div class="prompt"><header><b><span>17</span>팀 규칙 초안</b><button class="copy">복사</button></header>
+<pre>우리 팀에서 쓸 AI 사용 규칙 초안을 5줄로 만들어 줘. 허용 도구, 넣지 않을 정보, 결과 확인, 공유 방법, 문의처.</pre></div><div class="prompt"><header><b><span>18</span>사고 대응</b><button class="copy">복사</button></header>
+<pre>실수로 민감한 정보를 AI에 넣었을 때 바로 할 일을 순서대로 알려 줘. 회사 보안 담당에게 알리는 것을 포함해서.</pre></div><div class="prompt"><header><b><span>19</span>신입 안내문</b><button class="copy">복사</button></header>
+<pre>새로 온 팀원에게 줄 'AI 쓸 때 꼭 지킬 것' 안내문을 쉬운 말로 7줄 써 줘.</pre></div><div class="prompt"><header><b><span>20</span>월간 점검</b><button class="copy">복사</button></header>
+<pre>한 달에 한 번 팀에서 AI 사용을 점검할 질문 5개를 만들어 줘.</pre></div>
+
+<h2 id="s3"><small>보너스 1</small>팀 AI 사용 규칙 양식</h2>
+<p class="lead">빈칸만 채워 팀 채팅방이나 위키에 올리세요. 회사 규정이 있으면 그게 우선입니다.</p>
+
+
+<div class="prompt"><header><b>TEAM-AI-RULES.TXT</b><button class="copy">복사</button></header><pre>[우리 팀 AI 사용 규칙]
+
+1. 허용 도구: [회사가 허용한 AI 서비스·계정]
+2. 절대 넣지 않는 정보: 주민번호·계좌·비밀번호·API 키·대외비 문서·[추가]
+3. 가리고 넣는 정보: 사람 이름 → [이름1], 고객사 → [고객A], 금액 → 비율
+4. 결과 확인: 숫자·사실은 원본과 대조 후 사용
+5. 공유: AI 대화 링크는 내용 확인 후 공유
+6. 실수했을 때: 즉시 [보안 담당]에게 알림
+문의: [담당자]</pre></div><h2 id="s4"><small>보너스 2</small>넣기 전 10초 점검표</h2>
+<p class="lead">붙여 넣기 직전에 위에서부터 확인하세요.</p>
+
+<table><thead><tr><th>확인할 것</th><th>있으면</th></tr></thead><tbody><tr><td>실명·연락처·주소</td><td>[이름1] 등으로 바꾸기</td></tr><tr><td>주민번호·계좌·카드</td><td>지우기 (넣지 않기)</td></tr><tr><td>고객사·계약 금액</td><td>[고객A]·비율로 바꾸기</td></tr><tr><td>대외비·보안 문서</td><td>넣지 않기</td></tr><tr><td>비밀번호·키가 든 코드</td><td>[SECRET]으로 바꾸기</td></tr><tr><td>회사 허용 도구인가</td><td>아니면 쓰지 않기</td></tr></tbody></table>
+<h2 id="faq"><small>FAQ</small>자주 묻는 질문</h2><div class="faq"><details><summary>회사에 AI 규정이 없어요.</summary><p>PART 1의 첫 프롬프트로 질문 목록을 만들어 팀장이나 보안 담당에게 먼저 확인하세요. 확인 전에는 가장 보수적으로 가리고 쓰는 게 안전합니다.</p></details><details><summary>가리면 답의 품질이 떨어지지 않나요?</summary><p>대부분의 업무 질문은 실제 이름이나 금액이 없어도 구조와 상황만으로 충분히 좋은 답이 나옵니다.</p></details><details><summary>서비스 설정은 어디서 바꾸나요?</summary><p>서비스마다 메뉴 이름과 위치가 다르고 자주 바뀝니다. 쓰는 서비스의 공식 도움말에서 '데이터', '개인정보', '학습' 항목을 확인하세요.</p></details><details><summary>이 자료는 어느 AI에서 쓰나요?</summary><p>클로드, 챗GPT, 제미나이 모두 똑같이 쓸 수 있습니다.</p></details></div></div><div class="unlock box"><h3>나머지 3개 파트 열기</h3><p>이메일만 남기면 바로 열려요. 다음 자료가 나오면 먼저 알려드릴게요.</p>
+<form><input type="email" name="email" placeholder="you@example.com" required>
+<label><input type="checkbox" name="agree" required> (필수) 개인정보 수집·이용에 동의합니다.</label>
+<label><input type="checkbox" name="ad"> (선택) 새 자료·소식 이메일 수신에 동의합니다.</label>
+<button class="btn">무료로 전체 열기</button>
+<div class="notice">수집 항목: 이메일 · 목적: 자료 열람 확인과 새 자료 안내(선택 동의 시) · 보관: 동의 철회 또는 수집 후 1년 중 빠른 날까지 · 동의를 거부할 수 있으며, 거부 시 잠긴 파트를 볼 수 없습니다. <a href="../privacy.html">개인정보처리방침</a></div></form></div></div>
+<div class="bar"><div class="in"><span>매일 하나씩, 복사해서 쓰는 AI 업무 자료</span><a href="https://www.instagram.com/daily_ai_bot/">팔로우하기</a></div></div>
+<footer><a href="../privacy.html">개인정보처리방침</a> · © 2026 daily_ai_bot</footer></div>
+<script>document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{const t=b.closest('.prompt').querySelector('pre').innerText;try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove()}b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500)});const g=document.querySelector('.gate');if(g){const k='unlocked:'+location.pathname;const open=()=>{g.querySelector('.blur').classList.remove('blur');g.querySelector('.unlock').remove()};try{if(localStorage.getItem(k))open()}catch(e){}
+g.querySelector('form').onsubmit=async(e)=>{e.preventDefault();const f=new FormData(e.target);try{localStorage.setItem(k,'1')}catch(e){}open()}}</script></body></html>
